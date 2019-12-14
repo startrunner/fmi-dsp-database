@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+
 enum class database_type
 {
     BOOLEAN,
@@ -9,3 +11,6 @@ enum class database_type
     UUID,
     TIME
 };
+
+void dump_database_type(std::ostream &out, database_type type);
+

@@ -20,6 +20,14 @@ public:
     std::string get_name() const { return name; }
     database_type get_type()const { return type; }
 
+    void dump(std::ostream &out)const
+    {
+        out << name << '[';
+        dump_database_type(out, type);
+        out << ']';
+
+    }
+
     ~column_schema() {}
 };
 

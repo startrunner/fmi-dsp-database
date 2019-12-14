@@ -1,5 +1,6 @@
 #pragma once
 #include <map>
+#include <iostream>
 #include "index_key.h"
 #include "table_row.h"
 #include "database_value.h"
@@ -80,6 +81,11 @@ public:
         }
 
         byPrimaryKey[primaryKey] = newRow.build();
+    }
+
+    void dump(std::ostream &out)const
+    {
+        schema.dump(out);
     }
 
 

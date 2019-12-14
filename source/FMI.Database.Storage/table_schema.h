@@ -76,6 +76,32 @@ public:
         return columns;
     }
 
+    void dump(std::ostream &out)const
+    {
+        using namespace std;
+        out << "Table schema name: " << name << endl;
+        out << "Table schema columns: ";
+        int i = 0;
+        for (const auto &column : this->columns)
+        {
+            column.second.dump(out);
+            if(i+1 < this->columns.size())out << ", ";
+            i++;
+        }
+        out << endl;
+
+        out << "Table schema primary key: ";
+        i = 0;
+        for (const std::string &pkColumn : this->primaryKey)
+        {
+            out << pkColumn;
+            if (i + 1 < this->primaryKey.size())out << ", ";
+            i++;
+        }
+        out << endl;
+
+    }
+
 private:
 
     std::map<std::string, column_schema> map_columns(const std::vector<column_schema> &columns)
@@ -129,4 +155,6 @@ private:
 
         return true;
     }
+
+
 };

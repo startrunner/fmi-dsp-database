@@ -3,6 +3,9 @@
 using namespace std;
 using namespace lib;
 
+template<typename T>  std::string dump_string(const T object);
+
+
 
 TEST(Twat, TableStore)
 {
@@ -31,9 +34,21 @@ TEST(Twat, TableStore)
         .set("ColTime", dbtime::now())
         .build();
 
+
+
     EXPECT_TRUE(tableStore.try_create(row1));
     EXPECT_EQ(tableStore.row_count(), 1);
 
+    string dump1 = dump_string(tableStore); ;
+
     EXPECT_EQ(1, 1);
     EXPECT_TRUE(true);
+}
+
+
+template<typename T>  std::string dump_string(const T object)
+{
+    ostringstream stream;
+    object.dump(stream);
+    return stream.str();
 }
