@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FMI.Database.Storage", "FMI.Database.Storage\FMI.Database.Storage.vcxproj", "{52884F82-348D-4A82-B0AE-A98843015091}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FMI.Database.Storage.Tests", "FMI.Database.Storage.Tests\FMI.Database.Storage.Tests.vcxproj", "{715E8F3C-FFC2-4293-BD43-4999D5AC365C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{52884F82-348D-4A82-B0AE-A98843015091}.Release|x64.Build.0 = Release|x64
 		{52884F82-348D-4A82-B0AE-A98843015091}.Release|x86.ActiveCfg = Release|Win32
 		{52884F82-348D-4A82-B0AE-A98843015091}.Release|x86.Build.0 = Release|Win32
+		{715E8F3C-FFC2-4293-BD43-4999D5AC365C}.Debug|x64.ActiveCfg = Debug|x64
+		{715E8F3C-FFC2-4293-BD43-4999D5AC365C}.Debug|x64.Build.0 = Debug|x64
+		{715E8F3C-FFC2-4293-BD43-4999D5AC365C}.Debug|x86.ActiveCfg = Debug|Win32
+		{715E8F3C-FFC2-4293-BD43-4999D5AC365C}.Debug|x86.Build.0 = Debug|Win32
+		{715E8F3C-FFC2-4293-BD43-4999D5AC365C}.Release|x64.ActiveCfg = Release|x64
+		{715E8F3C-FFC2-4293-BD43-4999D5AC365C}.Release|x64.Build.0 = Release|x64
+		{715E8F3C-FFC2-4293-BD43-4999D5AC365C}.Release|x86.ActiveCfg = Release|Win32
+		{715E8F3C-FFC2-4293-BD43-4999D5AC365C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -12,3 +12,9 @@
 
 
 // reference additional headers your program requires here
+
+#include <vector>
+#include <map>
+#include <cinttypes>
+#include <cstddef>
+#include <string>
