@@ -70,33 +70,22 @@ public:
         int year = aTime.tm_year + 1900;
 
         ostringstream stream;
-        stream 
-            << day << "." 
-            << month << "." 
-            << year << " " 
+        stream
+            << day << "."
+            << month << "."
+            << year << " "
             << aTime.tm_hour << ":"
-            << aTime.tm_min << ":" 
+            << aTime.tm_min << ":"
             << aTime.tm_sec;
 
         string result = stream.str();
         return result;
-
-        //ostringstream stream;
-
-        ////std::tm tm = *std::localtime(&t);
-        //tm tm; localtime_s(&tm, &t);
-        ////auto locale = std::locale("en_GB.utf8");
-        //stream.imbue(std::locale("C"));
-        //stream << std::put_time(&tm, "%c") ;
-
-        //string text = stream.str();
-        //return text;
     }
 };
 
 class database_value
 {
-    bool reverseOrder = false;
+    //bool reverseOrder = false;
     database_type type;
 
     using value_t = std::variant<
@@ -112,12 +101,28 @@ class database_value
 
 public:
 
+    static database_value min_value()
+    {
+        database_value value;
+        value.type = database_type::MIN_VALUE;
+        value.value = INT_MIN;
+        return value;
+    }
+
+    static database_value max_value()
+    {
+        database_value value;
+        value.type = database_type::MAX_VALUE;
+        value.value = INT_MAX;
+        return value;
+    }
+
     database_value() {}
 
     database_value(const database_value &other)
     {
         this->type = other.type;
-        this->reverseOrder = other.reverseOrder;
+        //this->reverseOrder = other.reverseOrder;
         value = other.value;
     }
 
@@ -153,45 +158,47 @@ public:
         value(value), type(database_type::DOUBLE)
     {}
 
-    database_value reverse_order()const
-    {
-        database_value copy = *this;
-        copy.reverseOrder = !reverseOrder;
-        return copy;
-    }
-
-    bool is_order_reversed()const { return reverseOrder; }
 
     database_type get_type()const { return type; }
 
     bool operator < (const database_value &other)const
     {
-        return compare<std::less<value_t>>(other);
+        if (this->type == database_type::MIN_VALUE)return true;
+        if (other.type == database_type::MIN_VALUE)return false;
+        if (this->type == database_type::MAX_VALUE)return false;
+        if (other.type == database_type::MAX_VALUE)return true;
+
+        if (this->type != other.type)
+        {
+            throw std::runtime_error("comparison of incompatible types");
+        }
+
+        return value < other.value;
     }
 
     bool operator > (const database_value &other)const
     {
-        return compare<std::greater<value_t>>(other);
+        return other < *this;
+    }
+
+    bool operator <= (const database_value &other)const
+    {
+        return *this < other || *this == other;
+    }
+
+    bool operator >= (const database_value &other)const
+    {
+        return other < *this || other == *this;
     }
 
     bool operator == (const database_value &other)const
     {
-        assert_comparison(other);
-        return value == other.value;
+        return type == other.type && value == other.value;
     }
 
     bool operator != (const database_value &other)const
     {
-        assert_comparison(other);
-        return value != other.value;
-    }
-
-    template<typename T> bool compare(const database_value &other)const
-    {
-        static const T comparator;
-
-        assert_comparison(other);
-        return reverseOrder ^ comparator(value, other.value);
+        return !(*this == other);
     }
 
     friend std::ostream& operator << (std::ostream& out, const database_value &toPrint)
@@ -234,8 +241,8 @@ private:
         if (type != other.type)
             throw std::runtime_error("comparison of incompatible types...");
 
-        if (reverseOrder != other.reverseOrder)
-            throw std::runtime_error("comparison of values with different order");
+        //if (reverseOrder != other.reverseOrder)
+        //    throw std::runtime_error("comparison of values with different order");
 
     }
 };

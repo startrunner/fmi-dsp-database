@@ -1,7 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "database_value.h"
-#include "index_key.h"
+#include "primary_key.h"
 #include "table_schema.h"
 #include <map>
 #include <string>
@@ -18,7 +18,7 @@ public:
         this->values = values;
     }
 
-    index_key get_primary_key(const table_schema &table)const
+    primary_key get_primary_key(const table_schema &table)const
     {
         assert_schema(table);
 
@@ -32,7 +32,7 @@ public:
             keyValues.push_back(value);
         }
 
-        index_key key{ keyValues };
+        primary_key key{ keyValues };
         return key;
 
     }

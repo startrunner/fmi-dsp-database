@@ -1,7 +1,7 @@
 #pragma once
 #include <map>
 #include <iostream>
-#include "index_key.h"
+#include "primary_key.h"
 #include "table_row.h"
 #include "database_value.h"
 #include "table_schema.h"
@@ -10,7 +10,7 @@
 class table_store
 {
     table_schema schema;
-    std::map<index_key, table_row> byPrimaryKey;
+    std::map<primary_key, table_row> byPrimaryKey;
 
 public:
     table_store() {}
@@ -27,7 +27,7 @@ public:
         if (!row.check_schema(schema))
             return false;
 
-        index_key primaryKey = row.get_primary_key(schema);
+        primary_key primaryKey = row.get_primary_key(schema);
         auto found = byPrimaryKey.find(primaryKey);
 
         if (found != byPrimaryKey.end())
@@ -39,7 +39,7 @@ public:
         return true;
     }
 
-    bool try_delete(index_key primaryKey)
+    bool try_delete(primary_key primaryKey)
     {
         auto found = byPrimaryKey.find(primaryKey);
         if (found == byPrimaryKey.end())
@@ -52,7 +52,7 @@ public:
         return true;
     }
 
-    bool try_get(index_key primaryKey, table_row *out_row)
+    bool try_get(primary_key primaryKey, table_row *out_row)
     {
         auto found = byPrimaryKey.find(primaryKey);
         if (found == byPrimaryKey.end())
@@ -63,7 +63,7 @@ public:
         return true;
     }
 
-    bool try_update(index_key primaryKey, std::map<std::string, database_value> newValues)
+    bool try_update(primary_key primaryKey, std::map<std::string, database_value> newValues)
     {
         table_row oldRow;
         if (!try_get(primaryKey, &oldRow))

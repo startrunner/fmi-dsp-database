@@ -6,7 +6,7 @@
 #include "database_type.h"
 #include "database_type.h"
 #include "database_value.h"
-#include "index_key.h"
+#include "primary_key.h"
 #include "index_schema.h"
 #include "table_row.h"
 #include "table_schema.h"

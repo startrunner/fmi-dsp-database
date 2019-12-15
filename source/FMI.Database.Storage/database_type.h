@@ -9,7 +9,10 @@ enum class database_type
     TEXT,
     DOUBLE,
     UUID,
-    TIME
+    TIME,
+
+    MIN_VALUE,
+    MAX_VALUE,
 };
 
 void dump_database_type(std::ostream &out, database_type type);

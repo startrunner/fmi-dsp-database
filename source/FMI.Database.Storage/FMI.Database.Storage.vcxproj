@@ -159,13 +159,15 @@
   <ItemGroup>
     <ClInclude Include="boost_uuid.h" />
     <ClInclude Include="column_schema.h" />
+    <ClInclude Include="database_query.h" />
     <ClInclude Include="database_schema.h" />
     <ClInclude Include="database_storage_all.h" />
     <ClInclude Include="database_type.h" />
     <ClInclude Include="database_value.h" />
-    <ClInclude Include="index_key.h" />
+    <ClInclude Include="primary_key.h" />
     <ClInclude Include="index_schema.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="table_index.h" />
     <ClInclude Include="table_row.h" />
     <ClInclude Include="table_schema.h" />
     <ClInclude Include="table_store.h" />
