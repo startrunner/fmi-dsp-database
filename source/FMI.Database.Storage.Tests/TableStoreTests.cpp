@@ -25,13 +25,15 @@ TEST(Twat, TableStore)
 
     table_store tableStore{ tableSchema };
 
+    dbtime now = dbtime::now();
+
 
     table_row row1 =
         table_row_builder{}
         .set("ColUuid", new_id())
         .set("Col32", 16)
         .set("ColText", "Gosho"s)
-        .set("ColTime", dbtime::now())
+        .set("ColTime", now)
         .build();
 
 

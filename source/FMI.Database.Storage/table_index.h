@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "database_value.h"
 #include "table_row.h"
-#include "database_query.h"
+#include "query_filter.h"
 #include "index_schema.h"
 #include "primary_key.h"
 
@@ -209,38 +209,105 @@ private:
         else if (theOperator == database_column_operator::COLUMN_EQUALS)
         {
             auto equalRange = children.equal_range(operand);
-            add_key_range(equalRange.first, equalRange.second, keys);
+            handleFound(equalRange.first, equalRange.second, keys);
         }
         else if (theOperator == database_column_operator::COLUMN_IS_LESS_THAN)
         {
             auto begin = children.begin();
             auto end = children.lower_bound(operand);
-            add_key_range(begin, end, keys);
+            handleFound(begin, end, keys);
         }
         else if (theOperator == database_column_operator::COLUMN_IS_GREATER_THAN)
         {
             auto begin = children.upper_bound(operand);
             auto end = children.end();
-            add_key_range(begin, end, keys);
+            handleFound(begin, end, keys);
         }
         else if (theOperator == database_column_operator::COLUMN_DOES_NOT_EQUAL)
         {
-            find_children(children, database_column_operator::COLUMN_IS_LESS_THAN, operand, keys);
-            find_children(children, database_column_operator::COLUMN_IS_GREATER_THAN, operand, keys);
+            find_children(children, database_column_operator::COLUMN_IS_LESS_THAN, operand, handleFound, keys);
+            find_children(children, database_column_operator::COLUMN_IS_GREATER_THAN, operand, handleFound, keys);
         }
         else if (theOperator == database_column_operator::COLUMN_IS_LESS_THAN_OR_EQUAL)
         {
-            find_children(children, database_column_operator::COLUMN_IS_LESS_THAN, operand, keys);
-            find_children(children, database_column_operator::COLUMN_EQUALS, operand, keys);
+            find_children(children, database_column_operator::COLUMN_IS_LESS_THAN, operand, handleFound, keys);
+            find_children(children, database_column_operator::COLUMN_EQUALS, operand, handleFound, keys);
         }
         else if (theOperator == database_column_operator::COLUMN_IS_GREATER_THAN_OR_EQUAL)
         {
-            find_children(children, database_column_operator::COLUMN_IS_GREATER_THAN, operand, keys);
-            find_children(children, database_column_operator::COLUMN_EQUALS, operand, keys);
+            find_children(children, database_column_operator::COLUMN_IS_GREATER_THAN, operand, handleFound, keys);
+            find_children(children, database_column_operator::COLUMN_EQUALS, operand, handleFound, keys);
+        }
+        else
+        {
+            throw std::runtime_error("attempted use of unsupported database column operator :/");
+        }
+    }
+    void print_indent(std::ostream &out, int indent)const
+    {
+        const std::string indentation = "  ";
+        for (int i = 0; i < indent; i++)out << indentation;
+
+    }
+
+
+public:
+    void dump(std::ostream &out, int indent = 1) const
+    {
+        using namespace std;
+
+        if (!childItems.empty())
+        {
+            int i = 0;
+            for (auto childItemEntry : childItems)
+            {
+                print_indent(out, indent);
+
+                out << childItemEntry.first << "=>[" << endl;
+                indent++;
+
+                int j = 0;
+                for (const primary_key &primaryKey : *childItemEntry.second)
+                {
+                    print_indent(out, indent);
+                    out << primaryKey;
+                    if (j + 1 < childItemEntry.second->size())out << ",";
+                    out << endl;
+                    j++;
+                }
+
+                print_indent(out, indent);
+                out << ']';
+                indent--;
+
+
+                out << std::endl;
+                i++;
+            }
+        }
+        if (!childLevels.empty())
+        {
+            int i = 0;
+            for (auto childLevenEntry : childLevels)
+            {
+                print_indent(out, indent);
+                out << childLevenEntry.first << "=>[" << endl;
+
+                const table_index_level &childLevel = *childLevenEntry.second;
+                childLevel.dump(out, indent + 1);
+
+                print_indent(out, indent);
+                out << ']';
+
+
+                out << std::endl;
+                i++;
+            }
         }
     }
 
-public:
+
+
     ~table_index_level()
     {
         using namespace std;
@@ -265,11 +332,12 @@ class table_index
     const std::string tableName;
     table_index_level *topLevel = nullptr;
 
+
+public:
     table_index(const std::string &tableName) : tableName(tableName)
     {
 
     }
-
     void index(
         table_row row,
         const table_schema &tableSchema,
@@ -280,7 +348,11 @@ class table_index
 
         const vector<string> &columns = indexSchema.get_columns();
 
-        if (topLevel == nullptr)return;
+        if (topLevel == nullptr)
+        {
+            string firstColumn = columns[0];
+            topLevel = new table_index_level{ firstColumn };
+        }
 
         topLevel->index(
             columns.begin(),
@@ -310,7 +382,7 @@ class table_index
         );
     }
 
-    std::vector<primary_key> query_primary_keys(database_query query)
+    std::vector<primary_key> query_primary_keys(query_filter query)
     {
         if (topLevel == nullptr)
             return {};
@@ -336,6 +408,14 @@ class table_index
     {
         if (topLevel != nullptr)
             delete topLevel;
+    }
+
+    void dump(std::ostream &out)const
+    {
+        out << "index for table (" << tableName << "){";
+        if (topLevel != nullptr)
+            topLevel->dump(out);
+        out << "}";
     }
 
 

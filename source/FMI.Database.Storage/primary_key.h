@@ -61,6 +61,21 @@ public:
         return values.size() > other.values.size();
     }
 
+    friend std::ostream& operator << (std::ostream &out, const primary_key &key)
+    {
+        const auto &values = key.values;
+
+        out << "PK[";
+        for (int i = 0; i < values.size(); i++)
+        {
+            out << values[i];
+            if (i + 1 < values.size())out << ", ";
+        }
+        out << "]";
+
+        return out;
+    }
+
 private:
 
     template<typename CompareItems, typename CompareLengths> bool compare(const primary_key &other)const

@@ -16,7 +16,8 @@ public:
     table_schema() :table_schema("_") {}
     table_schema(const std::string &name) :name(name) {}
     table_schema(const table_schema &other) :
-        name(other.name), columns(other.columns), primaryKey(other.primaryKey) {}
+        name(other.name), columns(other.columns), primaryKey(other.primaryKey)
+    {}
 
     table_schema(
         const std::string &name,
@@ -48,6 +49,8 @@ public:
     }
 
     int column_count()const { return columns.size(); }
+
+    std::string get_name()const { return name; }
 
     std::vector<column_schema> get_primary_key()const
     {
@@ -85,7 +88,7 @@ public:
         for (const auto &column : this->columns)
         {
             column.second.dump(out);
-            if(i+1 < this->columns.size())out << ", ";
+            if (i + 1 < this->columns.size())out << ", ";
             i++;
         }
         out << endl;

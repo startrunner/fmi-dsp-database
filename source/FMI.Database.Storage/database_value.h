@@ -30,15 +30,27 @@ private:
     time_t time;
 
 public:
-    dbtime() :dbtime(time_t{}) {}
-    dbtime(const dbtime &other) :dbtime(other.time) {}
+    dbtime() {}
+    dbtime(const dbtime &other) 
+    {
+        this->time = other.time;
+    }
     dbtime(time_t time) :time(time) {}
 
     dbtime& operator = (const dbtime &other)
     {
-        time = other.time;
+        if (this == &other)
+            return *this;
+
+        this->time = other.time;
         return *this;
     }
+
+    /*dbtime& operator = (const dbtime &other)
+    {
+        time = other.time;
+        return *this;
+    }*/
 
     bool operator < (dbtime other)const { return time < other.time; }
     bool operator > (dbtime other)const { return time > other.time; }
@@ -89,11 +101,11 @@ class database_value
     database_type type;
 
     using value_t = std::variant<
+        dbtime,
         int32_t,
         int64_t,
         double,
         bool,
-        dbtime,
         lib::uuid,
         std::string
     >;
@@ -117,16 +129,24 @@ public:
         return value;
     }
 
+    database_value& operator = (const database_value &other)
+    {
+        this->value = other.value;
+        this->type = other.type;
+        return *this;
+    }
+
     database_value() {}
 
     database_value(const database_value &other)
     {
         this->type = other.type;
-        //this->reverseOrder = other.reverseOrder;
         value = other.value;
+        ;
+        //this->reverseOrder = other.reverseOrder;
     }
 
-    database_value(dbtime time) :
+    database_value(dbtime value) :
         value(value), type(database_type::TIME)
     {}
 

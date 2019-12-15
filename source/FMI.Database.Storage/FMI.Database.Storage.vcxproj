@@ -159,7 +159,7 @@
   <ItemGroup>
     <ClInclude Include="boost_uuid.h" />
     <ClInclude Include="column_schema.h" />
-    <ClInclude Include="database_query.h" />
+    <ClInclude Include="query_filter.h" />
     <ClInclude Include="database_schema.h" />
     <ClInclude Include="database_storage_all.h" />
     <ClInclude Include="database_type.h" />

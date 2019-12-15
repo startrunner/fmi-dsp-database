@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DatabaseValueTests.cpp" />
+    <ClCompile Include="IndicesTests.cpp" />
     <ClCompile Include="TableStoreTests.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

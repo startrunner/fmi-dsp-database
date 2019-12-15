@@ -4,6 +4,7 @@
 #include "primary_key.h"
 #include "table_schema.h"
 #include <map>
+#include <iostream>
 #include <string>
 
 class table_row
@@ -84,6 +85,30 @@ public:
 
         return true;
     }
+
+    void dump(std::ostream &out)const
+    {
+        //using namespace variant_cout;
+
+        int i = 0;
+        for (auto &entry : this->values)
+        {
+            out << entry.first << ": " << /*streamer{ entry.second }*/entry.second;
+            if (i + 1 < values.size())out << ", ";
+
+            i++;
+        }
+    }
+
+    bool operator < (const table_row &other) const
+    {
+        return values < other.values;
+    }
+
+    bool operator == (const table_row &other) const
+    {
+        return values == other.values;
+    }
 };
 
 
@@ -96,7 +121,8 @@ public:
     table_row_builder() {}
 
     table_row_builder(const table_row_builder &other) :
-        values(other.values) {}
+        values(other.values)
+    {}
 
     table_row_builder(const table_row &copyFrom)
     {
@@ -108,11 +134,22 @@ public:
         }
     }
 
-    table_row_builder& set(std::string column, database_value value)
+    table_row_builder& set(std::string column, const database_value &value)
     {
-        values.emplace(column, value);
+        if (value.get_type() == database_type::TIME)
+        {
+            std::cout << "kur";
+            3;
+        }
+        //values.emplace(column, value);
+        values[column] = value;
         return *this;
     }
 
-    table_row build()const { return { values }; }
+    table_row build()const
+    {
+        table_row row{ values };
+
+        return row;
+    }
 };
