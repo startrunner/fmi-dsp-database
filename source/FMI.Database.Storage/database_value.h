@@ -261,8 +261,5 @@ private:
         if (type != other.type)
             throw std::runtime_error("comparison of incompatible types...");
 
-        //if (reverseOrder != other.reverseOrder)
-        //    throw std::runtime_error("comparison of values with different order");
-
     }
 };

@@ -6,7 +6,7 @@ using namespace lib;
 
 TEST(Indices, ShouldHaveSameResultAsUnindexedQuery)
 {
-    const int EntryCount = 10000;
+    const int EntryCount = 1000000;
     srand(4554);
 
     const string TableName = "TheTable";
