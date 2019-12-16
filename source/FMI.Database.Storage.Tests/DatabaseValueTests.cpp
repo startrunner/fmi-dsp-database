@@ -28,6 +28,13 @@ TEST(DatabaseValue, StringifyTime)
     ASSERT_EQ(str, "15.12.2019 1:12:38");
 }
 
+TEST(DatabaseValue, StringifyUUID)
+{
+    database_value value = { lib::new_id() };
+    std::string text = value.to_string();
+    ASSERT_EQ(text.size(), 36);
+}
+
 template<typename T> void less_than_test(T lesser, T greater)
 {
     database_value x = lesser;

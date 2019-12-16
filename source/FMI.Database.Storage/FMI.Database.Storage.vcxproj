@@ -72,19 +72,21 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(MSBuildProjectDirectory)/../boost;$(IncludePath)</IncludePath>
+    <IncludePath>$(MSBuildProjectDirectory)/../boost;$(IncludePath);$(MSBuildProjectDirectory)/../include;$(MSBuildProjectDirectory)/../include</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(MSBuildProjectDirectory)/../boost/stage/lib</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(MSBuildProjectDirectory)/../boost;$(IncludePath)</IncludePath>
+    <IncludePath>$(MSBuildProjectDirectory)/../boost;$(IncludePath);$(MSBuildProjectDirectory)/../include;$(MSBuildProjectDirectory)/../include</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(MSBuildProjectDirectory)/../boost/stage/lib</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);;$(MSBuildProjectDirectory)/../include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);;$(MSBuildProjectDirectory)/../include</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -157,7 +159,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="boost_uuid.h" />
     <ClInclude Include="column_schema.h" />
     <ClInclude Include="dbtime.h" />
     <ClInclude Include="query_filter.h" />
@@ -174,9 +175,9 @@
     <ClInclude Include="table_schema.h" />
     <ClInclude Include="table_store.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="uuid.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="boost_uuid.cpp" />
     <ClCompile Include="database_type.cpp" />
     <ClCompile Include="database_value.cpp" />
     <ClCompile Include="dbtime.cpp" />
@@ -191,6 +192,7 @@
     <ClCompile Include="table_index.cpp" />
     <ClCompile Include="table_index_level.cpp" />
     <ClCompile Include="table_row.cpp" />
+    <ClCompile Include="uuid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

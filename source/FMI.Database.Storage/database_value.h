@@ -3,7 +3,7 @@
 #include <variant>
 #include "database_type.h"
 #include "dbtime.h"
-#include "boost_uuid.h"
+#include "uuid.h"
 
 class database_value
 {
@@ -97,4 +97,11 @@ public:
     bool operator != (const database_value &other)const { return !(*this == other); }
 
     friend std::ostream& operator << (std::ostream& out, const database_value &toPrint);
+
+    std::string to_string()const
+    {
+        std::ostringstream stream;
+        stream << *this;
+        return stream.str();
+    }
 };

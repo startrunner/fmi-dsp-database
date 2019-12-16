@@ -1,6 +1,6 @@
 #pragma once
 
-#include "boost_uuid.h"
+#include "uuid.h"
 #include "column_schema.h"
 #include "database_schema.h"
 #include "database_type.h"

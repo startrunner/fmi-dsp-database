@@ -27,7 +27,7 @@ std::ostream& operator << (std::ostream& out, const database_value &toPrint)
         out << get<dbtime>(value);
         break;
     case database_type::UUID:
-        out << get<boost::uuids::uuid>(value);
+        out << get<lib::uuid>(value);
         break;
 
     default:
