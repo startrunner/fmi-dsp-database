@@ -48,7 +48,7 @@ public:
         return columns.at(name);
     }
 
-    int column_count()const { return columns.size(); }
+    size_t column_count()const { return columns.size(); }
 
     std::string get_name()const { return name; }
 
