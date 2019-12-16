@@ -113,22 +113,7 @@ class database_value
 
 public:
 
-    static database_value min_value()
-    {
-        database_value value;
-        value.type = database_type::MIN_VALUE;
-        value.value = INT_MIN;
-        return value;
-    }
-
-    static database_value max_value()
-    {
-        database_value value;
-        value.type = database_type::MAX_VALUE;
-        value.value = INT_MAX;
-        return value;
-    }
-
+    
     database_value& operator = (const database_value &other)
     {
         this->value = other.value;
@@ -183,11 +168,6 @@ public:
 
     bool operator < (const database_value &other)const
     {
-        if (this->type == database_type::MIN_VALUE)return true;
-        if (other.type == database_type::MIN_VALUE)return false;
-        if (this->type == database_type::MAX_VALUE)return false;
-        if (other.type == database_type::MAX_VALUE)return true;
-
         if (this->type != other.type)
         {
             throw std::runtime_error("comparison of incompatible types");

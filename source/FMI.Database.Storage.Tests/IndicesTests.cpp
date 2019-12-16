@@ -6,7 +6,7 @@ using namespace lib;
 
 TEST(Indices, ShouldHaveSameResultAsUnindexedQuery)
 {
-    const int EntryCount = 1000000;
+    const int EntryCount = 10000;
     srand(4554);
 
     const string TableName = "TheTable";
@@ -87,9 +87,9 @@ TEST(Indices, ShouldHaveSameResultAsUnindexedQuery)
     std::sort(fromIndexed.begin(), fromIndexed.end());
     std::sort(fromUnindexed.begin(), fromUnindexed.end());
 
-    bool areEqual = fromIndexed == fromUnindexed;
+    //bool areEqual = fromIndexed == fromUnindexed;
 
-    EXPECT_TRUE(areEqual);
+    EXPECT_EQ(fromIndexed, fromUnindexed);
 
     std::cout << "ura";
 }
