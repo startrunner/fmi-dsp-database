@@ -6,12 +6,9 @@
 
 namespace lib
 {
-    using uuid = boost::uuids::uuid;
+    using  boost::uuids::uuid;
     using boost::uuids::to_string;
+    using namespace boost::uuids;
 
     uuid new_id();
-
-    bool operator < (const uuid &x, const uuid &y);
-
-    bool operator > (const uuid &x, const uuid &y);
 }

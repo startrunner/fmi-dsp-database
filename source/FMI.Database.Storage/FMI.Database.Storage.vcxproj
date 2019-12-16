@@ -159,6 +159,7 @@
   <ItemGroup>
     <ClInclude Include="boost_uuid.h" />
     <ClInclude Include="column_schema.h" />
+    <ClInclude Include="dbtime.h" />
     <ClInclude Include="query_filter.h" />
     <ClInclude Include="database_schema.h" />
     <ClInclude Include="database_storage_all.h" />
@@ -168,6 +169,7 @@
     <ClInclude Include="index_schema.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="table_index.h" />
+    <ClInclude Include="table_index_level.h" />
     <ClInclude Include="table_row.h" />
     <ClInclude Include="table_schema.h" />
     <ClInclude Include="table_store.h" />
@@ -177,12 +179,18 @@
     <ClCompile Include="boost_uuid.cpp" />
     <ClCompile Include="database_type.cpp" />
     <ClCompile Include="database_value.cpp" />
+    <ClCompile Include="dbtime.cpp" />
+    <ClCompile Include="primary_key.cpp" />
+    <ClCompile Include="query_filter.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="table_index.cpp" />
+    <ClCompile Include="table_index_level.cpp" />
+    <ClCompile Include="table_row.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

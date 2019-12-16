@@ -17,7 +17,7 @@ public:
 
 
 
-    std::string get_name() const { return name; }
+    const std::string& get_name() const { return name; }
     database_type get_type()const { return type; }
 
     void dump(std::ostream &out)const
