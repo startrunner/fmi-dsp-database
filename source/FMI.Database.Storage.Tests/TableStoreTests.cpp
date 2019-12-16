@@ -5,8 +5,6 @@ using namespace lib;
 
 template<typename T>  std::string dump_string(const T object);
 
-
-
 TEST(Twat, TableStore)
 {
     const string TableName = "Tbl";

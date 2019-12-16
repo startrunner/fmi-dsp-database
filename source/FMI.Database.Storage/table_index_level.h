@@ -62,15 +62,6 @@ private:
         std::vector<table_index_level const*> &levels
     );
 
-    
-    static void print_indent(std::ostream &out, int indent)
-    {
-        const std::string indentation = "  ";
-        for (int i = 0; i < indent; i++)out << indentation;
-
-    }
-
-
 public:
     void dump(std::ostream &out, int indent = 1) const;
 

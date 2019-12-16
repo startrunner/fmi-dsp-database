@@ -87,7 +87,7 @@ void table_index_level::unindex(
     }
 }
 
-//e tuka si eba mamata sori
+//e te tuka si eba mamata sori
 template<typename TKey, typename TValue, typename TResult>
 static void find_children(
     const typename std::map<TKey, TValue> &children,
@@ -212,6 +212,13 @@ void table_index_level::add_child_level_range(
         const table_index_level *childLevel = it->second;
         levels.push_back(childLevel);
     }
+}
+
+void print_indent(std::ostream &out, int indent)
+{
+    const std::string indentation = "  ";
+    for (int i = 0; i < indent; i++)out << indentation;
+
 }
 
 void table_index_level::dump(std::ostream &out, int indent) const

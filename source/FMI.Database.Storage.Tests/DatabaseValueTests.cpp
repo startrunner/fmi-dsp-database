@@ -35,10 +35,4 @@ template<typename T> void less_than_test(T lesser, T greater)
 
     EXPECT_TRUE(x < y);
     EXPECT_FALSE(y < x);
-
-    //x = x.reverse_order();
-    //y = y.reverse_order();
-
-    //EXPECT_FALSE(x < y);
-    //EXPECT_TRUE(y < x);
 }
