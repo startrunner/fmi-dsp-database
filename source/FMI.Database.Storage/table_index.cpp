@@ -9,17 +9,17 @@ void table_index::index(
 {
     using namespace std;
 
-    const vector<string> &columns = indexSchema.get_columns();
+    const vector<string> &specifiedColumns = indexSchema.get_columns();
 
     if (topLevel == nullptr)
     {
-        string firstColumn = columns[0];
+        string firstColumn = specifiedColumns[0];
         topLevel = new table_index_level{ firstColumn };
     }
 
     topLevel->index(
-        columns.begin(),
-        columns.end(),
+        specifiedColumns.begin(),
+        specifiedColumns.end(),
         tableSchema,
         row
     );
@@ -35,11 +35,11 @@ void table_index::unindex(
 
     if (topLevel == nullptr)return;
 
-    const vector<string> &columns = indexSchema.get_columns();
+    const vector<string> &specifiedColumns = indexSchema.get_columns();
 
     topLevel->unindex(
-        columns.begin(),
-        columns.end(),
+        specifiedColumns.begin(),
+        specifiedColumns.end(),
         tableSchema,
         row
     );

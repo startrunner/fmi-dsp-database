@@ -191,16 +191,16 @@ private:
 
     static index_schema build_normalized_index_schema(const query_filter &filter)
     {
-        std::vector<std::string> columns;
+        std::vector<std::string> specifiedColumns;
 
         const std::vector<database_column_filter> &filters = filter.get_column_fitlers();
 
         for (const database_column_filter &filter : filters)
         {
-            columns.push_back(filter.get_column());
+            specifiedColumns.push_back(filter.get_column());
         }
 
-        index_schema unNormalized{ columns };
+        index_schema unNormalized{ specifiedColumns };
         index_schema normalized = unNormalized.normalize();
 
         return normalized;

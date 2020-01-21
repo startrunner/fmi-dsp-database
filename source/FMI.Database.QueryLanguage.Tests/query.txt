@@ -1,0 +1,38 @@
+tempTable <- QUERY TableName(
+    Column0 = "Op1",
+    Column1 = "",
+	Column2 < 1,
+	Column3 > 3.14,
+	Column4 < Operand4,
+	...
+)[Column1 AS OptionalAlias1, Column2 + Column3 AS OptionalAlias2]
+
+tt1 <- JOIN(LEFT, Table1 as T1, Table2 as T2, T1Expr, T2Expr)[T1Col1, T1Col2, Stamat]
+
+PRINT TableName[
+	Pesho, Gosho, Pesho + Gosho, Pesho * Gosho, Pesho + (Gosho * (Stamat + Tosho))
+]
+
+PRINT Stamat[Pesho, Gosho]
+
+PRINT Kiro
+
+CREATETABLE TableName [Pesho INT, Gosho FLOAT]
+
+DROPTABLE TableName
+
+ADDCOLUMNS TableName(Pesho INT, Gosho INT)
+
+DROPCOLUMNS TableName(Pesho, Gosho)
+
+
+PRINT QUERY ...
+
+INSERT TargetTable QUERY SourceTable(
+)
+
+
+
+
+
+

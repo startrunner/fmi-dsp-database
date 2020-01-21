@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "../FMI.Database.Storage/database_storage_all.h"
 #include "gtest/gtest.h"
 using namespace std;

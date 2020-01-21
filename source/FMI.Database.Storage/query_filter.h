@@ -65,6 +65,20 @@ public:
         this->columnComparisons = columnComparisons;
     }
 
+    query_filter(const query_filter &other) { *this = other; }
+
+    query_filter& operator = (const query_filter &other)
+    {
+        if (this == &other)
+            return *this;
+
+        useIndex = other.useIndex;
+        tableName = other.tableName;
+        columnComparisons = other.columnComparisons;
+
+        return *this;
+    }
+
     const bool uses_index()const { return useIndex; }
     const std::string &get_table_name()const { return tableName; }
     const std::vector<database_column_filter> &get_column_fitlers()const { return columnComparisons; }
